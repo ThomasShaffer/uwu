@@ -21,7 +21,7 @@ func InitializeModel() model {
 }
 
 func (m model) OpenEditor(filepath string, line string) tea.Cmd {
-    cmd := exec.Command("nvim",  "+"+line, filepath)
+    cmd := exec.Command(config.Editor,  "+"+line, filepath)
     return tea.ExecProcess(cmd, func(err error) tea.Msg {
             return err
     })
@@ -61,6 +61,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
     return m, nil
 }
 
+//TODO: Make the TUI prettier. Pretty ugly 
 func (m model) View() string {
     todos := "\n TODOS\n\n" 
     entries := FormatTodos(m.todos)

@@ -27,7 +27,7 @@ func readFile(filepath string, line string) string {
     lines := string(file)
     split := strings.Split(lines, "\n")
     split[mid-1] = lipgloss.NewStyle().Bold(true).Render(split[mid-1])
-    result := split[max(0, mid-7): min(len(split), mid+7)]
+    result := split[max(0, mid-3): min(len(split), mid+9)]
     return strings.Join(result,"\n")
 }
 
@@ -43,6 +43,7 @@ func (c code) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
     return c, nil
 }
 
+//TODO: Make this prettier, still very ugly
 func (c code) View() string {
     return c.model.View()
 }

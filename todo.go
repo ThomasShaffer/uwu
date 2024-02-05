@@ -30,6 +30,12 @@ func GetTodos() ([]entry) {
     var out bytes.Buffer
     var result []entry
     grep := exec.Command("grep", "TODO*:", "-Hrni", ".")
+    for dir := range config.IgnoreDir {
+        grep.Args = append(grep.Args, "--exclude-dir="+config.IgnoreDir[dir])
+    }
+    for file := range config.IgnoreFile {
+        grep.Args = append(grep.Args, "--exclude="+config.IgnoreFile[file])
+    }
     grep.Stdout = &out
     grep.Run()
     split := strings.Split(string(out.Bytes()), "\n")
